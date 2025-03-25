@@ -31,6 +31,7 @@ def main():
                 return
         screen.fill(("black"))
         
+        Player_1.timer -= dt
         updatables.update(dt)
         for drawable in drawables:
             drawable.draw(screen)
@@ -38,6 +39,10 @@ def main():
             if asteroid.collision(Player_1):
                 print("Kolizja, naura")
                 return
+            for shot in shots:
+                if asteroid.collision(shot):
+                    asteroid.split()
+                    shot.kill()
 
         pygame.display.flip()
         dt = base_clock.tick(60) / 1000
